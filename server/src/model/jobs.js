@@ -46,11 +46,11 @@ title: {
     enum: ['Entry', 'Mid', 'Senior'],
     default: 'Entry'
   },
-  postedBy: {
-    type: Schema.Types.ObjectId,
-    ref: 'User', 
-    required: true
-  },
+  // postedBy: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User', 
+  //   required: true
+  // },
   applicants: [{
     type: Schema.Types.ObjectId,
     ref: 'User' 

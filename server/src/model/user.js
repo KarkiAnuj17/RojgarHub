@@ -30,11 +30,13 @@ const userSchema = new Schema({
   },
   phoneNumber: {
     type: String,
-    match: [/^\d{10}$/, 'Phone number must be 10 digits']
+    match: [/^\d{10}$/, 'Phone number must be 10 digits'],
+    required: false
   },
   location: {
     type: String,
-    trim: true
+    trim: true,
+    required: false
   },
   isVerified: {
     type: Boolean,
@@ -43,7 +45,5 @@ const userSchema = new Schema({
 }, {
   timestamps: true
 });
-
-
 
 export const User = mongoose.model('User', userSchema);
