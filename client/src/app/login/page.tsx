@@ -31,7 +31,8 @@ const SigninForm = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
       const {data}= await axios.post("http://localhost:8000/login",values)
-      if(data?.isLoggedIn) router.back();
+      if(data?.isLoggedIn) 
+        router.push('/');
     toast(data?.message)
     } catch (error) {
       toast.error("Login Failed. Please check your credentials.");

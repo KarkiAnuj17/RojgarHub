@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { User, Mail, Lock, Phone, MapPin, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const validationSchema = Yup.object({
   fullName: Yup.string().required('Full name is required').min(2),
@@ -35,10 +36,12 @@ const initialValues = {
 };
 
 const SignupForm = () => {
+  const router = useRouter()
   const handleSubmit = async (values, { resetForm }) => {
     try {
         const {data} = await axios.post("http://localhost:8000/register",values) 
         toast(data?.message)
+        router.push("/login")
         resetForm();
     } catch (err) {
       toast.error("Signup failed. Please try again.");
@@ -138,7 +141,7 @@ const SignupForm = () => {
                   >
                     <option value="">Select a role</option>
                     <option value="Job Seeker">Job Seeker</option>
-                    <option value="Recruiter">Recruiter</option>
+                    <option value="Recruiter">Employers</option>
                   </Field>
                   <ErrorMessage name="role" component="div" className="text-red-500 text-sm" />
                 </div>
