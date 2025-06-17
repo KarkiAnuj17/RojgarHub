@@ -8,6 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Mail, Lock, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -24,12 +26,13 @@ const initialValues = {
 };
 
 const SigninForm = () => {
+  const router= useRouter()
+
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      console.log('Login values:', values);
-
-      toast.success("Login Successful! Welcome to RojgarHub.");
-      resetForm();
+      const {data}= await axios.post("http://localhost:8000/login",values)
+      if(data?.isLoggedIn) router.back();
+    toast(data?.message)
     } catch (error) {
       toast.error("Login Failed. Please check your credentials.");
     }

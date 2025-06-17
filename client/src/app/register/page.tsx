@@ -38,9 +38,8 @@ const SignupForm = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
         const {data} = await axios.post("http://localhost:8000/register",values) 
-        
-        toast.success("Account created successfully!");
-      resetForm();
+        toast(data?.message)
+        resetForm();
     } catch (err) {
       toast.error("Signup failed. Please try again.");
     }

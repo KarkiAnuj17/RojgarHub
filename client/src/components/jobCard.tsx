@@ -65,7 +65,6 @@ const JobCard = ({ job, onViewDetails }) => {
       <CardContent className="pt-0">
         <p className="text-gray-600 text-sm line-clamp-3 mb-4 leading-relaxed">{job.description}</p>
 
-        {/* Key Info Grid */}
         <div className="grid grid-cols-3 gap-3 mb-4 text-xs">
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
@@ -95,7 +94,7 @@ const JobCard = ({ job, onViewDetails }) => {
         </div>
 
         <Button
-          onClick={() => onViewDetails(job.id)}
+          onClick={() => onViewDetails(job._id)}
           className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 text-sm"
         >
           VIEW MORE & APPLY

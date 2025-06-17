@@ -96,8 +96,8 @@ const PostJob = () => {
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      await axios.post('http://localhost:8000/jobs',values)
-        toast.success("Job posted successfully!");
+      const{data}=await axios.post('http://localhost:8000/jobs',values)
+        toast(data.message);
       resetForm();
     } catch (error) {
       toast.error( "Failed to post job. Please try again.");

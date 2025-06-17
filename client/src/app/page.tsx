@@ -21,9 +21,12 @@ import {
   Play,
   Quote,
 } from "lucide-react"
+import CustomNavbar from "@/components/navbar"
 
 const Homepage = () => {
   return (
+    <div>
+      <CustomNavbar/>
     <div className="min-h-screen bg-white">
       <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 pb-32">
         <div className="max-w-7xl mx-auto px-4">
@@ -376,6 +379,7 @@ const Homepage = () => {
           </div>
         </div>
       </footer>
+    </div>
     </div>
   )
 }
