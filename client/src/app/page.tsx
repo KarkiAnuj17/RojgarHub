@@ -25,13 +25,10 @@ import CustomNavbar from "@/components/navbar"
 import { useSelector } from "react-redux"
 
 const Homepage = () => {
-    const {email,fullName}= useSelector(state=>state.user)
   
   return (
     <div>
       <CustomNavbar/>
-       {email}
-       {fullName}
     <div className="min-h-screen bg-white">
       <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 pb-32">
         <div className="max-w-7xl mx-auto px-4">
@@ -335,7 +332,7 @@ const Homepage = () => {
               <h3 className="font-semibold mb-4">For Employers</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="/employers" className="hover:text-white transition">
+                  <Link href="/job/add-jobs" className="hover:text-white transition">
                     Post Jobs
                   </Link>
                 </li>

@@ -108,7 +108,7 @@ const JobDetail = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
       <div className="max-w-5xl mx-auto px-4 py-8">
         <Link
-          href="/job/listJobs"
+          href="/job/list-jobs"
           className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-8 font-medium transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
