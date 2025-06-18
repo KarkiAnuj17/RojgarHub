@@ -61,7 +61,7 @@ const Navbar = () => {
                         <h4 className="font-medium text-gray-900 mb-2">Find Jobs</h4>
                         <NavigationMenuLink asChild>
                           <Link
-                            href="/job/listJobs"
+                            href="/job/list-jobs"
                             className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
                           >
                             <Search className="w-4 h-4 text-gray-500" />

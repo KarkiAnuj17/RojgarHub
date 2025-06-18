@@ -22,11 +22,16 @@ import {
   Quote,
 } from "lucide-react"
 import CustomNavbar from "@/components/navbar"
+import { useSelector } from "react-redux"
 
 const Homepage = () => {
+    const {email,fullName}= useSelector(state=>state.user)
+  
   return (
     <div>
       <CustomNavbar/>
+       {email}
+       {fullName}
     <div className="min-h-screen bg-white">
       <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 pb-32">
         <div className="max-w-7xl mx-auto px-4">

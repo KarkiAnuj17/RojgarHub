@@ -8,9 +8,9 @@ const userRoute = Router()
 userRoute.post('/register',async(req,res)=>{
 const user = await User.findOne({email:req.body.email})
 if(user) res.send({message:"Email Already Exist"})
-else 
+else {
 req.body.password = await bcrypt.hash(req.body.password , saltRounds)
-User.create(req.body)
+User.create(req.body)}
 return res.send({message:"User created"})
 })
 

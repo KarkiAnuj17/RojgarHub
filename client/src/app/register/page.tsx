@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
+
 const validationSchema = Yup.object({
   fullName: Yup.string().required('Full name is required').min(2),
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -37,20 +38,21 @@ const initialValues = {
 
 const SignupForm = () => {
   const router = useRouter()
-  const handleSubmit = async (values, { resetForm }) => {
-    try {
-        const {data} = await axios.post("http://localhost:8000/register",values) 
-        toast(data?.message)
-        router.push("/login")
-        resetForm();
-    } catch (err) {
-      toast.error("Signup failed. Please try again.");
-    }
-  };
+ const handleSubmit = async (values) => {
+  try {
+    const { data } = await axios.post("http://localhost:8000/register", values);
+    toast(data?.message || "Signup successful");
+    router.push("/login");
+  } catch (err) {
+    toast.error(err?.response?.data?.message || "Signup failed. Please try again.");
+  }
+};
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
+     <Card className="w-full max-w-2xl shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
         <CardHeader className="text-center space-y-2 pb-8">
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Join RojgarHub

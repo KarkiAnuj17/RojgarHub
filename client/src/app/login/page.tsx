@@ -10,6 +10,8 @@ import { Mail, Lock, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { addLoginDetails } from '@/redux/reducerSlices/userSlice';
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -27,12 +29,16 @@ const initialValues = {
 
 const SigninForm = () => {
   const router= useRouter()
+  const dispatch = useDispatch()
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
       const {data}= await axios.post("http://localhost:8000/login",values)
       if(data?.isLoggedIn) 
         router.push('/');
+      if(data){
+          dispatch(addLoginDetails(data))
+        }
     toast(data?.message)
     } catch (error) {
       toast.error("Login Failed. Please check your credentials.");

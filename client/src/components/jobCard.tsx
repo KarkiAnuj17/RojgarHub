@@ -93,12 +93,13 @@ const JobCard = ({ job, onViewDetails }) => {
           </div>
         </div>
 
-        <Button
-          onClick={() => onViewDetails(job._id)}
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 text-sm"
-        >
-          VIEW MORE & APPLY
-        </Button>
+       <Button
+  onClick={() => onViewDetails(job._id)}
+  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 text-sm cursor-pointer"
+>
+  VIEW MORE & APPLY
+</Button>
+
       </CardContent>
     </Card>
   )

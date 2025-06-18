@@ -89,7 +89,7 @@ const JobDetail = () => {
 
   if (!job) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
         <div className="max-w-5xl mx-auto px-4 py-8 text-center">
           <Link href="/" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-8 font-medium">
             <ArrowLeft className="h-4 w-4" />
@@ -105,7 +105,7 @@ const JobDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
       <div className="max-w-5xl mx-auto px-4 py-8">
         <Link
           href="/job/listJobs"
@@ -114,10 +114,9 @@ const JobDetail = () => {
           <ArrowLeft className="h-4 w-4" />
           Back to Jobs
         </Link>
-
-        <Card className="bg-white shadow-xl border-0 rounded-2xl overflow-hidden">
-          <CardContent className="p-0">
-            <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 px-8 py-8 text-white">
+        <Card className="bg-white shadow-xl rounded-2xl overflow-hidden ">
+          <CardContent className="">
+            <div className="rounded-2xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 px-8 py-8 text-white">
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                 <div className="flex-1">
                   <div className="flex items-start gap-6 mb-6">
