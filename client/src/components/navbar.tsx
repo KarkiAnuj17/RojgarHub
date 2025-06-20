@@ -28,6 +28,7 @@ import {
   MessageSquare,
   BarChart3,
   Eye,
+  UserCircle,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -180,192 +181,179 @@ const Navbar = () => {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-          </div>):( <div className="hidden lg:flex items-center space-x-1">
-            <NavigationMenu>
-              <NavigationMenuList className="flex gap-1">
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
-                    <Briefcase className="w-4 h-4" />
-                    <span>Jobs</span>
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
-                    <div className="grid gap-3 w-64">
-                      <div className="grid gap-2">
-                        <h4 className="font-medium text-gray-900 mb-2">Job Management</h4>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employers/jobs-post"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <PlusCircle className="w-4 h-4 text-gray-500" />
-                            <span>Post New Job</span>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employers/jobs-manage"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <FileText className="w-4 h-4 text-gray-500" />
-                            <span>Manage Jobs</span>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employers/job-templates"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <Briefcase className="w-4 h-4 text-gray-500" />
-                            <span>Job Templates</span>
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
-                    <Users className="w-4 h-4" />
-                    <span>Candidates</span>
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
-                    <div className="grid gap-3 w-64">
-                      <div className="grid gap-2">
-                        <h4 className="font-medium text-gray-900 mb-2">Candidate Management</h4>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/candidates/search"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <Search className="w-4 h-4 text-gray-500" />
-                            <span>Search Candidates</span>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/applications"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <FileText className="w-4 h-4 text-gray-500" />
-                            <span>Applications</span>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/candidates/shortlisted"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <UserCheck className="w-4 h-4 text-gray-500" />
-                            <span>Shortlisted</span>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/interviews"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <MessageSquare className="w-4 h-4 text-gray-500" />
-                            <span>Interviews</span>
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+          </div>):( 
+            <div className="hidden lg:flex items-center space-x-1">
+  <NavigationMenu>
+    <NavigationMenuList className="flex gap-1">
+      <NavigationMenuItem>
+        <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
+          <Briefcase className="w-4 h-4" />
+          <span>Jobs</span>
+        </NavigationMenuTrigger>
+        <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
+          <div className="grid gap-3 w-64">
+            <div className="grid gap-2">
+              <h4 className="font-medium text-gray-900 mb-2">Job Management</h4>
+              <NavigationMenuLink asChild>
+                <Link href="/employers/jobs-post" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <PlusCircle className="w-4 h-4 text-gray-500" />
+                  <span>Post New Job</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employers/jobs-manage" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <FileText className="w-4 h-4 text-gray-500" />
+                  <span>Manage Jobs</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employers/job-templates" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <Briefcase className="w-4 h-4 text-gray-500" />
+                  <span>Job Templates</span>
+                </Link>
+              </NavigationMenuLink>
+            </div>
+          </div>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
 
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
-                    <BarChart3 className="w-4 h-4" />
-                    <span>Analytics</span>
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
-                    <div className="grid gap-3 w-64">
-                      <div className="grid gap-2">
-                        <h4 className="font-medium text-gray-900 mb-2">Reports & Analytics</h4>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/analytics/dashboard"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <BarChart3 className="w-4 h-4 text-gray-500" />
-                            <span>Hiring Analytics</span>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/analytics/job-performance"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <Eye className="w-4 h-4 text-gray-500" />
-                            <span>Job Performance</span>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/analytics/market-insights"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <DollarSign className="w-4 h-4 text-gray-500" />
-                            <span>Market Insights</span>
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+      <NavigationMenuItem>
+        <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
+          <Users className="w-4 h-4" />
+          <span>Candidates</span>
+        </NavigationMenuTrigger>
+        <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
+          <div className="grid gap-3 w-64">
+            <div className="grid gap-2">
+              <h4 className="font-medium text-gray-900 mb-2">Candidate Management</h4>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/candidates/search" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <Search className="w-4 h-4 text-gray-500" />
+                  <span>Search Candidates</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/applications" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <FileText className="w-4 h-4 text-gray-500" />
+                  <span>Applications</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/candidates/shortlisted" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <UserCheck className="w-4 h-4 text-gray-500" />
+                  <span>Shortlisted</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/interviews" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <MessageSquare className="w-4 h-4 text-gray-500" />
+                  <span>Interviews</span>
+                </Link>
+              </NavigationMenuLink>
+            </div>
+          </div>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
 
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
-                    <BookOpen className="w-4 h-4" />
-                    <span>Resources</span>
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
-                    <div className="grid gap-3 w-64">
-                      <div className="grid gap-2">
-                        <h4 className="font-medium text-gray-900 mb-2">Employer Resources</h4>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/resources/hiring-guide"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <BookOpen className="w-4 h-4 text-gray-500" />
-                            <span>Hiring Guide</span>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/resources/salary-benchmarks"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <DollarSign className="w-4 h-4 text-gray-500" />
-                            <span>Salary Benchmarks</span>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/resources/interview-templates"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <MessageSquare className="w-4 h-4 text-gray-500" />
-                            <span>Interview Templates</span>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/employer/support"
-                            className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            <Users className="w-4 h-4 text-gray-500" />
-                            <span>Support Center</span>
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-          </div>)}
+      <NavigationMenuItem>
+        <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
+          <BarChart3 className="w-4 h-4" />
+          <span>Analytics</span>
+        </NavigationMenuTrigger>
+        <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
+          <div className="grid gap-3 w-64">
+            <div className="grid gap-2">
+              <h4 className="font-medium text-gray-900 mb-2">Reports & Analytics</h4>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/analytics/dashboard" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <BarChart3 className="w-4 h-4 text-gray-500" />
+                  <span>Hiring Analytics</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/analytics/job-performance" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <Eye className="w-4 h-4 text-gray-500" />
+                  <span>Job Performance</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/analytics/market-insights" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <DollarSign className="w-4 h-4 text-gray-500" />
+                  <span>Market Insights</span>
+                </Link>
+              </NavigationMenuLink>
+            </div>
+          </div>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+
+      <NavigationMenuItem>
+        <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
+          <BookOpen className="w-4 h-4" />
+          <span>Resources</span>
+        </NavigationMenuTrigger>
+        <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
+          <div className="grid gap-3 w-64">
+            <div className="grid gap-2">
+              <h4 className="font-medium text-gray-900 mb-2">Employer Resources</h4>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/resources/hiring-guide" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <BookOpen className="w-4 h-4 text-gray-500" />
+                  <span>Hiring Guide</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/resources/salary-benchmarks" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <DollarSign className="w-4 h-4 text-gray-500" />
+                  <span>Salary Benchmarks</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/resources/interview-templates" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <MessageSquare className="w-4 h-4 text-gray-500" />
+                  <span>Interview Templates</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/support" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <Users className="w-4 h-4 text-gray-500" />
+                  <span>Support Center</span>
+                </Link>
+              </NavigationMenuLink>
+            </div>
+          </div>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+
+      <NavigationMenuItem>
+        <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
+          <Building2 className="w-4 h-4" />
+          <span>Company</span>
+        </NavigationMenuTrigger>
+        <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
+          <div className="grid gap-3 w-64">
+            <div className="grid gap-2">
+              <h4 className="font-medium text-gray-900 mb-2">Company Settings</h4>
+              <NavigationMenuLink asChild>
+                <Link href="/employers/company-registration" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <Building2 className="w-4 h-4 text-gray-500" />
+                  <span>Register Company</span>
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link href="/employer/company-profile" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                  <UserCircle className="w-4 h-4 text-gray-500" />
+                  <span>Company Profile</span>
+                </Link>
+              </NavigationMenuLink>
+            </div>
+          </div>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    </NavigationMenuList>
+  </NavigationMenu>
+</div>
+)}
 
           {isLoggedIn ? (
             <DropdownMenu>
