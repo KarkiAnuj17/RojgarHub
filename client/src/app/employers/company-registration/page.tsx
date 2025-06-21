@@ -15,62 +15,50 @@ import axios from "axios"
 import { useSelector } from "react-redux"
 
 const companyValidationSchema = Yup.object({
-  name: Yup.string().required("Company name is required").trim().min(2, "Company name must be at least 2 characters"),
+  companyName: Yup.string().required("Company name is required").trim().min(2, "Company name must be at least 2 characters"),
   industry: Yup.string().required("Industry is required"),
-  email: Yup.string().email("Invalid email format").required("Email is required").lowercase(),
-  phone: Yup.string()
+  companyEmail: Yup.string().email("Invalid email format").required("Email is required").lowercase(),
+  companyPhone: Yup.string()
     .required("Phone number is required")
     .matches(/^[+]?[1-9][\d]{0,15}$/, "Invalid phone number format"),
-  address: Yup.string().required("Address is required").min(10, "Address must be at least 10 characters"),
-  website: Yup.string().url("Invalid website URL").nullable(),
-  description: Yup.string().max(1000, "Description cannot exceed 1000 characters").nullable(),
+  companyAddress: Yup.string().required("Address is required").min(10, "Address must be at least 10 characters"),
+  companyWebsite: Yup.string().url("Invalid website URL").nullable(),
+  companyDescription: Yup.string().max(1000, "Description cannot exceed 1000 characters").nullable(),
 })
 
 const industries = [
-  "Technology",
-  "Healthcare",
-  "Finance",
-  "Education",
-  "Manufacturing",
-  "Retail",
-  "Construction",
-  "Transportation",
-  "Energy",
-  "Agriculture",
-  "Entertainment",
-  "Real Estate",
-  "Consulting",
-  "Other",
+  "Technology", "Healthcare", "Finance", "Education", "Manufacturing", "Retail", "Construction",
+  "Transportation", "Energy", "Agriculture", "Entertainment", "Real Estate", "Consulting", "Other",
 ]
 
 export default function CompanyRegistrationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { _id } = useSelector( state => state.user)
+  const { _id } = useSelector(state => state.user)
 
   const initialValues = {
-    name: "",
+    companyName: "",
     industry: "",
-    email: "",
-    phone: "",
-    address: "",
-    website: "",
-    description: "",
+    companyEmail: "",
+    companyPhone: "",
+    companyAddress: "",
+    companyWebsite: "",
+    companyDescription: "",
   }
 
   const handleSubmit = async (values, { setSubmitting, resetForm, setStatus }) => {
     setIsSubmitting(true)
     setStatus(null)
-     try {
-       const companyData = {
+    try {
+      const companyData = {
         ...values,
-        createdBy:_id
-      };
-      
-     const { data } = await axios.post('http://localhost:8000/company',companyData)
-    toast(data?.message);
-    resetForm()
+        createdBy: _id,
+      }
+
+      const { data } = await axios.post("http://localhost:8000/company", companyData)
+      toast(data?.message)
+      resetForm()
     } catch (error) {
-        toast.error( "Failed to register company. Please try again.");
+      toast.error("Failed to register company. Please try again.")
     } finally {
       setIsSubmitting(false)
       setSubmitting(false)
@@ -94,34 +82,28 @@ export default function CompanyRegistrationForm() {
           {({ values, errors, touched, setFieldValue, status }) => (
             <Form className="space-y-6">
               {status && (
-                <div
-                  className={`p-4 rounded-md ${
-                    status.type === "success"
-                      ? "bg-green-50 text-green-800 border border-green-200"
-                      : "bg-red-50 text-red-800 border border-red-200"
-                  }`}
-                >
+                <div className={`p-4 rounded-md ${status.type === "success" ? "bg-green-50 text-green-800 border border-green-200" : "bg-red-50 text-red-800 border border-red-200"}`}>
                   {status.message}
                 </div>
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="name" className="flex items-center gap-2">
+                <Label htmlFor="companyName" className="flex items-center gap-2">
                   <Building2 className="h-4 w-4" />
-                  Company Name 
+                  Company Name
                 </Label>
                 <Field
                   as={Input}
-                  id="name"
-                  name="name"
+                  id="companyName"
+                  name="companyName"
                   placeholder="Enter company name"
-                  className={errors.name && touched.name ? "border-red-500" : ""}
+                  className={errors.companyName && touched.companyName ? "border-red-500" : ""}
                 />
-                <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage name="companyName" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="industry">Industry </Label>
+                <Label htmlFor="industry">Industry</Label>
                 <Select value={values.industry} onValueChange={(value) => setFieldValue("industry", value)}>
                   <SelectTrigger className={errors.industry && touched.industry ? "border-red-500" : ""}>
                     <SelectValue placeholder="Select industry" />
@@ -138,81 +120,81 @@ export default function CompanyRegistrationForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="flex items-center gap-2">
+                <Label htmlFor="companyEmail" className="flex items-center gap-2">
                   <Mail className="h-4 w-4" />
-                  Email Address 
+                  Company Email
                 </Label>
                 <Field
                   as={Input}
-                  id="email"
-                  name="email"
+                  id="companyEmail"
+                  name="companyEmail"
                   type="email"
                   placeholder="company@example.com"
-                  className={errors.email && touched.email ? "border-red-500" : ""}
+                  className={errors.companyEmail && touched.companyEmail ? "border-red-500" : ""}
                 />
-                <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage name="companyEmail" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="phone" className="flex items-center gap-2">
+                <Label htmlFor="companyPhone" className="flex items-center gap-2">
                   <Phone className="h-4 w-4" />
-                  Phone Number 
+                  Company Phone
                 </Label>
                 <Field
                   as={Input}
-                  id="phone"
-                  name="phone"
+                  id="companyPhone"
+                  name="companyPhone"
                   placeholder="+1 (555) 123-4567"
-                  className={errors.phone && touched.phone ? "border-red-500" : ""}
+                  className={errors.companyPhone && touched.companyPhone ? "border-red-500" : ""}
                 />
-                <ErrorMessage name="phone" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage name="companyPhone" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="address" className="flex items-center gap-2">
+                <Label htmlFor="companyAddress" className="flex items-center gap-2">
                   <MapPin className="h-4 w-4" />
-                  Address
+                  Company Address
                 </Label>
                 <Field
                   as={Textarea}
-                  id="address"
-                  name="address"
+                  id="companyAddress"
+                  name="companyAddress"
                   placeholder="Enter complete address"
-                  className={`min-h-[80px] ${errors.address && touched.address ? "border-red-500" : ""}`}
+                  className={`min-h-[80px] ${errors.companyAddress && touched.companyAddress ? "border-red-500" : ""}`}
                 />
-                <ErrorMessage name="address" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage name="companyAddress" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="website" className="flex items-center gap-2">
+                <Label htmlFor="companyWebsite" className="flex items-center gap-2">
                   <Globe className="h-4 w-4" />
                   Website
                 </Label>
                 <Field
                   as={Input}
-                  id="website"
-                  name="website"
+                  id="companyWebsite"
+                  name="companyWebsite"
                   placeholder="https://www.company.com"
-                  className={errors.website && touched.website ? "border-red-500" : ""}
+                  className={errors.companyWebsite && touched.companyWebsite ? "border-red-500" : ""}
                 />
-                <ErrorMessage name="website" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage name="companyWebsite" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description" className="flex items-center gap-2">
+                <Label htmlFor="companyDescription" className="flex items-center gap-2">
                   <FileText className="h-4 w-4" />
                   Company Description (Optional)
                 </Label>
                 <Field
                   as={Textarea}
-                  id="description"
-                  name="description"
+                  id="companyDescription"
+                  name="companyDescription"
                   placeholder="Brief description of your company (max 1000 characters)"
-                  className={`min-h-[100px] ${errors.description && touched.description ? "border-red-500" : ""}`}
+                  className={`min-h-[100px] ${errors.companyDescription && touched.companyDescription ? "border-red-500" : ""}`}
                 />
                 <div className="flex justify-between items-center">
-                  <ErrorMessage name="description" component="div" className="text-red-500 text-sm" />
-                  <span className="text-sm text-gray-500">{values.description.length}/1000</span>
+                  <ErrorMessage name="companyDescription" component="div" className="text-red-500 text-sm" />
+                  <span className="text-sm text-gray-500">{values.companyDescription.length}/1000</span>
                 </div>
               </div>
 

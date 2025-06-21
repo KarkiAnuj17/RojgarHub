@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const companySchema = new Schema(
   {
-    name: {
+    companyName: {
       type: String,
       required: true,
       trim: true,
@@ -11,25 +11,25 @@ const companySchema = new Schema(
       type: String,
       required: true,
     },
-    email: {
+    companyEmail: {
       type: String,
       required: true,
       unique: true,
       lowercase: true,
       trim: true,
     },
-    phone: {
+    companyPhone: {
       type: String,
       required: true,
     },
-    address: {
+    companyAddress: {
       type: String,
       required: true,
     },
-    website: {
+    companyWebsite: {
       type: String,
     },
-    description: {
+    companyDescription: {
       type: String,
       maxlength: 1000,
     },

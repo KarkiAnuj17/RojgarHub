@@ -20,7 +20,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['Job Seeker', 'Recruiter'],
+    enum: ['Job Seeker', 'Employers'],
     default: 'Job Seeker'
   },
   gender: {

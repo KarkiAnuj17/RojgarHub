@@ -4,7 +4,7 @@ import { Jobs } from "../model/jobs.js";
 const jobRoute= Router()
 
 jobRoute.post('/jobs',async (req, res)=>{
-    await Jobs.create(req.body)
+    await (await Jobs.create(req.body)).populate('company')
     res.send({message:"Job Posted"})
 })
 

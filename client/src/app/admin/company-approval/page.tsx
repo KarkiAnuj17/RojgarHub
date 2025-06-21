@@ -5,13 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, XCircle } from "lucide-react";
+import { addCompanyDetails } from "@/redux/reducerSlices/companySlice";
+import { useDispatch } from "react-redux";
 
 const CompanyApprovalCard = () => {
   const [companies, setCompanies] = useState({ approved: [], unapproved: [] });
 
+  const dispatch=useDispatch()
   const fetchCompanies = async () => {
+   
     const { data } = await axios.get('http://localhost:8000/company');
-    setCompanies(data);
+    setCompanies(data); 
+   
   };
 
   useEffect(() => {
@@ -21,12 +26,14 @@ const CompanyApprovalCard = () => {
   const handleApproval = async (id) => {
     const { data } = await axios.patch('http://localhost:8000/company/' + id);
     if (data) fetchCompanies();
+     if(data){
+      dispatch(addCompanyDetails({ user: data.company }));
+    }
   };
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">Company Approval Panel</h2>
-
       <section className="mb-8">
         <h3 className="text-xl font-semibold text-red-600 mb-2">Pending Approval</h3>
         {companies.unapproved.length > 0 ? (
@@ -34,10 +41,10 @@ const CompanyApprovalCard = () => {
             {companies.unapproved.map((item) => (
               <Card key={item._id} className="p-4 shadow-md hover:shadow-lg transition rounded-2xl border border-gray-200">
                 <div className="space-y-1">
-                  <h4 className="text-lg font-medium text-gray-800">{item.name}</h4>
-                  <p className="text-sm text-gray-600">{item.email}</p>
-                  <p className="text-sm text-gray-600">{item.phoneNumber}</p>
-                  <p className="text-sm text-gray-600">{item.location}</p>
+                  <h4 className="text-lg font-medium text-gray-800">{item.companyName}</h4>
+                  <p className="text-sm text-gray-600">{item.companyEmail}</p>
+                  <p className="text-sm text-gray-600">{item.companyPhone}</p>
+                  <p className="text-sm text-gray-600">{item.companyAddress}</p>
                   <Badge variant="destructive" className="mt-2">Not Approved</Badge>
                 </div>
                 <div className="flex gap-2 mt-4">
@@ -63,10 +70,10 @@ const CompanyApprovalCard = () => {
             {companies.approved.map((item) => (
               <Card key={item._id} className="p-4 shadow-md rounded-2xl border border-gray-200 bg-green-50">
                 <div className="space-y-1">
-                  <h4 className="text-lg font-medium text-gray-800">{item.name}</h4>
-                  <p className="text-sm text-gray-600">{item.email}</p>
-                  <p className="text-sm text-gray-600">{item.phoneNumber}</p>
-                  <p className="text-sm text-gray-600">{item.location}</p>
+                   <h4 className="text-lg font-medium text-gray-800">{item.companyName}</h4>
+                  <p className="text-sm text-gray-600">{item.companyEmail}</p>
+                  <p className="text-sm text-gray-600">{item.companyPhone}</p>
+                  <p className="text-sm text-gray-600">{item.companyAddress}</p>
                   <Badge variant="success" className="mt-2">Approved</Badge>
                 </div>
               </Card>

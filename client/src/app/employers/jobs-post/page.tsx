@@ -65,7 +65,7 @@ const jobValidationSchema = Yup.object().shape({
 
 const PostJob = () => {
   const { _id: companyId  } = useSelector(state => state.company);
-  const { _id:userId  } = useSelector(state => state.user);
+  const { _id: userId  } = useSelector(state => state.user);
 
   const initialValues = {
     title: '',
