@@ -8,78 +8,68 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Briefcase, Building2, MapPin, DollarSign, Calendar, Users, Plus, X } from 'lucide-react';
+import { Briefcase, MapPin, DollarSign, Calendar, Users, Plus, X } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const jobValidationSchema = Yup.object().shape({
   title: Yup.string()
     .required('Job title is required')
     .min(3, 'Job title must be at least 3 characters')
     .max(100, 'Job title must be less than 100 characters'),
-  
+
   description: Yup.string()
     .required('Job description is required')
     .min(50, 'Job description must be at least 50 characters'),
-  
-  company: Yup.object().shape({
-    name: Yup.string()
-      .required('Company name is required')
-      .min(2, 'Company name must be at least 2 characters'),
-    website: Yup.string()
-      .url('Please enter a valid URL')
-      .nullable()
-  }),
-  
-  location: Yup.string()
-    .required('Location is required'),
-  
+
+  location: Yup.string().required('Location is required'),
+
   jobType: Yup.string()
     .required('Job type is required')
     .oneOf(['Full-time', 'Part-time', 'Internship', 'Contract', 'Remote']),
-  
+
   salary: Yup.object().shape({
     min: Yup.number()
       .positive('Minimum salary must be positive')
       .nullable(),
     max: Yup.number()
       .positive('Maximum salary must be positive')
-      .when('min', (min, schema) => 
+      .when('min', (min, schema) =>
         min ? schema.min(min, 'Maximum salary must be greater than minimum salary') : schema
       )
       .nullable(),
     currency: Yup.string().default('Rs')
   }),
-  
+
   requirements: Yup.array()
     .of(Yup.string().min(1, 'Requirement cannot be empty'))
     .min(1, 'At least one requirement is needed'),
-  
+
   responsibilities: Yup.array()
     .of(Yup.string().min(1, 'Responsibility cannot be empty'))
     .min(1, 'At least one responsibility is needed'),
-  
+
   skills: Yup.array()
     .of(Yup.string().min(1, 'Skill cannot be empty'))
     .min(1, 'At least one skill is needed'),
-  
+
   experienceLevel: Yup.string()
     .required('Experience level is required')
     .oneOf(['Entry', 'Mid', 'Senior']),
-  
+
   deadline: Yup.date()
     .min(new Date(), 'Deadline must be in the future')
     .nullable()
 });
 
 const PostJob = () => {
+  const { _id: companyId  } = useSelector(state => state.company);
+  const { _id:userId  } = useSelector(state => state.user);
+
   const initialValues = {
     title: '',
     description: '',
-    company: {
-      name: '',
-      website: ''
-    },
     location: '',
     jobType: 'Full-time',
     salary: {
@@ -96,11 +86,17 @@ const PostJob = () => {
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const{data}=await axios.post('http://localhost:8000/jobs',values)
-        toast(data.message);
+      const payload = {
+        ...values,
+        company: companyId,
+        postedBy: userId
+      };
+
+      const { data } = await axios.post('http://localhost:8000/jobs', payload);
+      toast(data.message);
       resetForm();
     } catch (error) {
-      toast.error( "Failed to post job. Please try again.");
+      toast.error("Failed to post job. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -114,8 +110,8 @@ const PostJob = () => {
           <p className="text-lg text-gray-600">Find the perfect candidate for your team</p>
         </div>
 
-        <Card className="shadow-xl border-0 ">
-          <CardHeader className="  rounded-t-lg">
+        <Card className="shadow-xl border-0">
+          <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl">
               <Briefcase className="h-6 w-6" />
               Job Details
@@ -124,7 +120,7 @@ const PostJob = () => {
               Fill in the details below to post your job opening
             </CardDescription>
           </CardHeader>
-          
+
           <CardContent className="p-8">
             <Formik
               initialValues={initialValues}
@@ -156,42 +152,11 @@ const PostJob = () => {
                       as={Textarea}
                       id="description"
                       name="description"
-                      placeholder="Describe the role, what the candidate will be doing, and what makes this opportunity exciting..."
+                      placeholder="Describe the role..."
                       rows={6}
                       className="resize-none"
                     />
                     <ErrorMessage name="description" component="div" className="text-red-500 text-sm" />
-                  </div>
-
-                  <div className="bg-gray-50 rounded-lg p-6 space-y-4">
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                      <Building2 className="h-5 w-5 text-blue-600" />
-                      Company Information
-                    </h3>
-                    
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="company.name">Company Name *</Label>
-                        <Field
-                          as={Input}
-                          id="company.name"
-                          name="company.name"
-                          placeholder="Your company name"
-                        />
-                        <ErrorMessage name="company.name" component="div" className="text-red-500 text-sm" />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="company.website">Company Website</Label>
-                        <Field
-                          as={Input}
-                          id="company.website"
-                          name="company.website"
-                          placeholder="https://yourcompany.com"
-                        />
-                        <ErrorMessage name="company.website" component="div" className="text-red-500 text-sm" />
-                      </div>
-                    </div>
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-4">
@@ -204,7 +169,7 @@ const PostJob = () => {
                         as={Input}
                         id="location"
                         name="location"
-                        placeholder="e.g. New York, Remote"
+                        placeholder="e.g. Kathmandu, Remote"
                       />
                       <ErrorMessage name="location" component="div" className="text-red-500 text-sm" />
                     </div>
@@ -255,7 +220,7 @@ const PostJob = () => {
                       <DollarSign className="h-5 w-5 text-green-600" />
                       Salary Information
                     </h3>
-                    
+
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="salary.min">Minimum Salary</Label>
@@ -268,7 +233,7 @@ const PostJob = () => {
                         />
                         <ErrorMessage name="salary.min" component="div" className="text-red-500 text-sm" />
                       </div>
-                      
+
                       <div className="space-y-2">
                         <Label htmlFor="salary.max">Maximum Salary</Label>
                         <Field
@@ -280,7 +245,7 @@ const PostJob = () => {
                         />
                         <ErrorMessage name="salary.max" component="div" className="text-red-500 text-sm" />
                       </div>
-                      
+
                       <div className="space-y-2">
                         <Label htmlFor="salary.currency">Currency</Label>
                         <Field
@@ -303,7 +268,7 @@ const PostJob = () => {
                         <Icon className={`h-5 w-5 text-${color}-600`} />
                         {title} *
                       </h3>
-                      
+
                       <FieldArray name={name}>
                         {({ push, remove }) => (
                           <div className="space-y-3">
@@ -359,6 +324,7 @@ const PostJob = () => {
                     <ErrorMessage name="deadline" component="div" className="text-red-500 text-sm" />
                   </div>
 
+                  {/* Submit */}
                   <div className="pt-6">
                     <Button
                       type="submit"

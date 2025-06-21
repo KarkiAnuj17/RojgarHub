@@ -12,6 +12,7 @@ import { useState } from "react"
 import { Building2, Mail, Phone, MapPin, Globe, FileText } from "lucide-react"
 import { toast } from "sonner"
 import axios from "axios"
+import { useSelector } from "react-redux"
 
 const companyValidationSchema = Yup.object({
   name: Yup.string().required("Company name is required").trim().min(2, "Company name must be at least 2 characters"),
@@ -44,6 +45,7 @@ const industries = [
 
 export default function CompanyRegistrationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { _id } = useSelector( state => state.user)
 
   const initialValues = {
     name: "",
@@ -59,7 +61,12 @@ export default function CompanyRegistrationForm() {
     setIsSubmitting(true)
     setStatus(null)
      try {
-     const { data } = await axios.post('http://localhost:8000/company',values)
+       const companyData = {
+        ...values,
+        createdBy:_id
+      };
+      
+     const { data } = await axios.post('http://localhost:8000/company',companyData)
     toast(data?.message);
     resetForm()
     } catch (error) {

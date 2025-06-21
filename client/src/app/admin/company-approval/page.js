@@ -56,7 +56,6 @@ const CompanyApprovalCard = () => {
         )}
       </section>
 
-      {/* Approved Companies */}
       <section>
         <h3 className="text-xl font-semibold text-green-700 mb-2">Approved Companies</h3>
         {companies.approved.length > 0 ? (

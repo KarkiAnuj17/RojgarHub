@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const jobSchema = new Schema({
-title: {
+  title: {
     type: String,
     required: true,
     trim: true
@@ -11,15 +11,9 @@ title: {
     required: true
   },
   company: {
-    name: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    website: {
-      type: String,
-      trim: true
-    },
+    type: Schema.Types.ObjectId,
+    ref: "Company", 
+    required: true
   },
   location: {
     type: String,
@@ -46,23 +40,16 @@ title: {
     enum: ['Entry', 'Mid', 'Senior'],
     default: 'Entry'
   },
-  // postedBy: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'User', 
-  //   required: true
-  // },
-  applicants: [{
+  postedBy: {
     type: Schema.Types.ObjectId,
-    ref: 'User' 
-  }],
-  isActive: {
-    type: Boolean,
-    default: true
+    ref: 'User',
+    required: true
   },
   deadline: {
     type: Date
   }
 }, {
   timestamps: true
-})
+});
+
 export const Jobs = mongoose.model('Jobs', jobSchema);
