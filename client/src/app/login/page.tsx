@@ -35,7 +35,13 @@ const SigninForm = () => {
  
       const {data}= await axios.post("http://localhost:8000/login",values)
       if(data?.isLoggedIn) 
-       { router.push('/');}
+       { if(data.user.role === 'admin') {
+        router.push('/admin')  
+       }
+       else
+       { 
+        router.push('/');
+       }}
         toast(data?.message)
       if(data){
           dispatch(addLoginDetails(data))

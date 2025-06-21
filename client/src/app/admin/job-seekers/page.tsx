@@ -1,9 +1,9 @@
 import React from 'react'
 
-const page = () => {
+const JobSeeker = () => {
   return (
     <div>page</div>
   )
 }
 
-export default page
+export default JobSeeker
