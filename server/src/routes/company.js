@@ -5,8 +5,9 @@ import sendMail from "../utilis/sendEmail.js";
 const companyRoute = Router();
 
 companyRoute.post('/company', async (req, res) => {
-    await Company.create(req.body);
-    res.send({ message: "Registration Successful" });
+    const company =await Company.create(req.body);
+
+    res.send({ message: "Registration Successful" ,isRegistered:true, company:company});
   } );
 
 companyRoute.get('/company', async (req, res) => {

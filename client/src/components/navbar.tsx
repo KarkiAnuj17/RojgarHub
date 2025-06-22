@@ -47,7 +47,7 @@ import { logoutUser } from "@/redux/reducerSlices/userSlice"
 const Navbar = () => {
   const dispatch = useDispatch()
   const { isLoggedIn, email, fullName , role } = useSelector((state: any) => state.user)
-
+  const { isRegistered } = useSelector((state)=>state.company)
   const handleLogout = () => {
     dispatch(logoutUser())
   }
@@ -219,31 +219,44 @@ const Navbar = () => {
         </NavigationMenuContent>
       </NavigationMenuItem>
 
-      <NavigationMenuItem>
-        <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
-          <Building2 className="w-4 h-4" />
-          <span>Company</span>
-        </NavigationMenuTrigger>
-        <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
-          <div className="grid gap-3 w-64">
-            <div className="grid gap-2">
-              <h4 className="font-medium text-gray-900 mb-2">Company Settings</h4>
-              <NavigationMenuLink asChild>
-                <Link href="/employers/company-registration" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
-                  <Building2 className="w-4 h-4 text-gray-500" />
-                  <span>Register Company</span>
-                </Link>
-              </NavigationMenuLink>
-              <NavigationMenuLink asChild>
-                <Link href="/employer/company-profile" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
-                  <UserCircle className="w-4 h-4 text-gray-500" />
-                  <span>Company Profile</span>
-                </Link>
-              </NavigationMenuLink>
-            </div>
-          </div>
-        </NavigationMenuContent>
-      </NavigationMenuItem>
+     <NavigationMenuItem>
+  <NavigationMenuTrigger className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors">
+    <Building2 className="w-4 h-4" />
+    <span>Company</span>
+  </NavigationMenuTrigger>
+
+  <NavigationMenuContent className="p-4 bg-white rounded-lg shadow-lg border">
+    <div className="grid gap-3 w-64">
+      <div className="grid gap-2">
+        <h4 className="font-medium text-gray-900 mb-2">Company Settings</h4>
+
+        {!isRegistered ? (
+          <NavigationMenuLink asChild>
+            <Link
+              href="/employers/company-registration"
+              className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
+            >
+              <Building2 className="w-4 h-4 text-gray-500" />
+              <span>Register Company</span>
+            </Link>
+          </NavigationMenuLink>
+        ) : (
+          <NavigationMenuLink asChild>
+            <Link
+              href="/employer/company-profile"
+              className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors"
+            >
+              <UserCircle className="w-4 h-4 text-gray-500" />
+              <span>Company Profile</span>
+            </Link>
+          </NavigationMenuLink>
+        )}
+
+      </div>
+    </div>
+  </NavigationMenuContent>
+</NavigationMenuItem>
+
     </NavigationMenuList>
   </NavigationMenu>
 </div>

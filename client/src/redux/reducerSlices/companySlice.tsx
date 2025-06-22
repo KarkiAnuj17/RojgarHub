@@ -8,6 +8,7 @@ const initialState ={
     companyAddress: '',
     companyWebsite:'',
     companyDescription:'',
+    isRegistered:'',
     isApproved:'',
 }
 export const companySlice = createSlice({
@@ -15,7 +16,8 @@ export const companySlice = createSlice({
   initialState,
   reducers: {
     addCompanyDetails:(state,action)=>{
-      const {companyName,companyEmail,companyPhone,companyAddress,companyWebsite,companyDescription,isApproved,_id}=action.payload.user
+      const {isRegistered}=action.payload
+      const {companyName,companyEmail,companyPhone,companyAddress,companyWebsite,companyDescription,isApproved,_id}=action.payload.company
       return{
         ...state,
         companyEmail:companyEmail,
@@ -25,6 +27,7 @@ export const companySlice = createSlice({
         companyWebsite:companyWebsite,
         companyDescription:companyDescription,
         isApproved:isApproved,
+        isRegistered:isRegistered,
         _id :_id
       }
     }

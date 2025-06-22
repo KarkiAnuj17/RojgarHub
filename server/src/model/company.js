@@ -37,6 +37,10 @@ const companySchema = new Schema(
       type: Boolean,
       default: false,
     },
+    isRegistered:{
+      type: Boolean,
+      default: false,
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User", 

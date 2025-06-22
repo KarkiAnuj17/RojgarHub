@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 const CompanyApprovalCard = () => {
   const [companies, setCompanies] = useState({ approved: [], unapproved: [] });
 
-  const dispatch=useDispatch()
   const fetchCompanies = async () => {
    
     const { data } = await axios.get('http://localhost:8000/company');
@@ -26,9 +25,7 @@ const CompanyApprovalCard = () => {
   const handleApproval = async (id) => {
     const { data } = await axios.patch('http://localhost:8000/company/' + id);
     if (data) fetchCompanies();
-     if(data){
-      dispatch(addCompanyDetails({ user: data.company }));
-    }
+     
   };
 
   return (
