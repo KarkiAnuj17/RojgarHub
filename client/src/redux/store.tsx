@@ -3,9 +3,11 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import userSlice from './reducerSlices/userSlice';
 import reduxLogger from 'redux-logger';
+import { companySlice } from './reducerSlices/companySlice';
 
 const rootReducer = combineReducers({
   user: userSlice,
+  company : companySlice,
 });
 
 const persistConfig = {

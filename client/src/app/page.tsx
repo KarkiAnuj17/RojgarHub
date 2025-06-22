@@ -26,31 +26,48 @@ import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { addCompanyDetails, NullCompany } from "@/redux/reducerSlices/companySlice"
 
 const Homepage = () => {
-  const { _id ,role} = useSelector((state) => state.user);
-  const [companyData, setCompanyData] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.get(`http://localhost:8000/company/${_id}`);
-        setCompanyData(data);
-
-      } catch (error) {
+  const { _id, role } = useSelector((state) => state.user);
+const [companyData, setCompanyData] = useState(null);
+const dispatch = useDispatch()
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const { data } = await axios.get(`http://localhost:8000/company/${_id}`);
+      setCompanyData(data);
+      dispatch(addCompanyDetails(data));
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        setCompanyData(null);
+        dispatch(NullCompany());
+      } else {
         console.error("Failed to fetch company", error);
       }
-    };
-
-    if (_id) {
-      fetchData();
     }
-  }, [_id]);
+  };
+
+  if (_id && role === "Employers") {
+    fetchData();
+  }
+}, [_id, role, dispatch]);
+
   
   return (
     <div>
       <CustomNavbar/>
-     {role === 'Employers' && companyData && (
-  !companyData.isRegistered ? (
+     {role === 'Employers' && (
+  !companyData ? (
+    <Alert variant="destructive" className="my-4 mx-auto max-w-2xl">
+      <AlertTitle>No Company Found</AlertTitle>
+      <AlertDescription>
+        You haven’t registered your company yet. Please complete your company registration to get started.
+        <br />
+        <Link href="/employers/company-registration" className="text-blue-600 underline font-semibold">Register Now</Link>
+      </AlertDescription>
+    </Alert>
+  ) : !companyData.isRegistered ? (
     <Alert variant="destructive" className="my-4 mx-auto max-w-2xl">
       <AlertTitle>Company Not Registered</AlertTitle>
       <AlertDescription>
@@ -73,6 +90,7 @@ const Homepage = () => {
     </Alert>
   )
 )}
+
     <div className="min-h-screen bg-white">
       <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 pb-32">
         <div className="max-w-7xl mx-auto px-4">
