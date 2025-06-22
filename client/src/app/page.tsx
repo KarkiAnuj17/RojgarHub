@@ -22,13 +22,58 @@ import {
   Quote,
 } from "lucide-react"
 import CustomNavbar from "@/components/navbar"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 const Homepage = () => {
+  const { _id ,role} = useSelector((state) => state.user);
+  const [companyData, setCompanyData] = useState(null);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(`http://localhost:8000/company/${_id}`);
+        setCompanyData(data);
+
+      } catch (error) {
+        console.error("Failed to fetch company", error);
+      }
+    };
+
+    if (_id) {
+      fetchData();
+    }
+  }, [_id]);
   
   return (
     <div>
       <CustomNavbar/>
+     {role === 'Employers' && companyData && (
+  !companyData.isRegistered ? (
+    <Alert variant="destructive" className="my-4 mx-auto max-w-2xl">
+      <AlertTitle>Company Not Registered</AlertTitle>
+      <AlertDescription>
+        Your company is not registered. Please complete your registration to continue.
+      </AlertDescription>
+    </Alert>
+  ) : !companyData.isApproved ? (
+    <Alert variant="warning" className="my-4 mx-auto max-w-2xl border-yellow-500">
+      <AlertTitle>Pending Approval</AlertTitle>
+      <AlertDescription>
+        Your company registration is under review. You will be notified once it’s approved.
+      </AlertDescription>
+    </Alert>
+  ) : (
+    <Alert variant="default" className="my-4 mx-auto max-w-2xl border-green-500">
+      <AlertTitle>Company Approved</AlertTitle>
+      <AlertDescription>
+        Your company is fully registered and approved. You can now post jobs.
+      </AlertDescription>
+    </Alert>
+  )
+)}
     <div className="min-h-screen bg-white">
       <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 pb-32">
         <div className="max-w-7xl mx-auto px-4">
@@ -383,7 +428,7 @@ const Homepage = () => {
       </footer>
     </div>
     </div>
-  )
-}
+  );
+};
 
 export default Homepage

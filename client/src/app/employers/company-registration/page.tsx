@@ -12,9 +12,8 @@ import { useState } from "react"
 import { Building2, Mail, Phone, MapPin, Globe, FileText } from "lucide-react"
 import { toast } from "sonner"
 import axios from "axios"
-import { useDispatch, useSelector } from "react-redux"
+import {  useSelector } from "react-redux"
 import { useRouter } from "next/navigation"
-import { addCompanyDetails } from "@/redux/reducerSlices/companySlice"
 
 const companyValidationSchema = Yup.object({
   companyName: Yup.string().required("Company name is required").trim().min(2, "Company name must be at least 2 characters"),
@@ -37,7 +36,6 @@ export default function CompanyRegistrationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { _id } = useSelector(state => state.user)
   const router =useRouter()
-  const dispatch = useDispatch()
   const initialValues = {
     companyName: "",
     industry: "",
@@ -49,31 +47,29 @@ export default function CompanyRegistrationForm() {
   }
 
   const handleSubmit = async (values, { setSubmitting, resetForm, setStatus }) => {
-    setIsSubmitting(true)
-    setStatus(null)
-    try {
-      const companyData = {
-        ...values,
-        createdBy: _id,
-      }
+  setIsSubmitting(true);
+  setStatus(null);
 
-      const { data } = await axios.post("http://localhost:8000/company", companyData)
-      if(data?.isRegistered)
-      {
-      router.push('/')
-      resetForm()
-      }
-      toast(data?.message)
-      if(data){
-      dispatch(addCompanyDetails(data))
-              }
-    } catch (error) {
-      toast.error("Failed to register company. Please try again.")
-    } finally {
-      setIsSubmitting(false)
-      setSubmitting(false)
+  try {
+    const companyData = {
+      ...values,
+    };
+
+    const { data } = await axios.post(`http://localhost:8000/company/${_id}`, companyData);
+
+    if (data?.company) {
+      router.push('/');
+      resetForm();
     }
+    toast(data?.message);
+  } catch (error) {
+    toast.error("Failed to register company. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+    setSubmitting(false);
   }
+};
+
 
   return (
     <Card className="w-full max-w-2xl mx-auto shadow-2xl bg-white/95 backdrop-blur-sm">

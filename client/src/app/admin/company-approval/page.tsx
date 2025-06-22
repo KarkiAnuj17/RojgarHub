@@ -5,12 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, XCircle } from "lucide-react";
-import { addCompanyDetails } from "@/redux/reducerSlices/companySlice";
-import { useDispatch } from "react-redux";
 
 const CompanyApprovalCard = () => {
   const [companies, setCompanies] = useState({ approved: [], unapproved: [] });
-
   const fetchCompanies = async () => {
    
     const { data } = await axios.get('http://localhost:8000/company');
@@ -25,7 +22,6 @@ const CompanyApprovalCard = () => {
   const handleApproval = async (id) => {
     const { data } = await axios.patch('http://localhost:8000/company/' + id);
     if (data) fetchCompanies();
-     
   };
 
   return (
