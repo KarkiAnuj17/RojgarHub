@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords must match')
     .required('Confirm your password'),
-  role: Yup.string().oneOf(['Job Seeker', 'Recruiter'], 'Invalid role').required('Select a role'),
+  role: Yup.string().oneOf(['Job Seeker', 'Employers'], 'Invalid role').required('Select a role'),
   gender: Yup.string().oneOf(['Male', 'Female'], 'Invalid gender').required('Select gender'),
   phoneNumber: Yup.string().matches(/^\d{10}$/, 'Must be 10 digits'),
   location: Yup.string()
@@ -143,7 +143,7 @@ const SignupForm = () => {
                   >
                     <option value="">Select a role</option>
                     <option value="Job Seeker">Job Seeker</option>
-                    <option value="Recruiter">Employers</option>
+                    <option value="Employers">Employers</option>
                   </Field>
                   <ErrorMessage name="role" component="div" className="text-red-500 text-sm" />
                 </div>

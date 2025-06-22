@@ -12,7 +12,7 @@ import { useState } from "react"
 import { Building2, Mail, Phone, MapPin, Globe, FileText } from "lucide-react"
 import { toast } from "sonner"
 import axios from "axios"
-import {  useSelector } from "react-redux"
+import {   useSelector } from "react-redux"
 import { useRouter } from "next/navigation"
 
 const companyValidationSchema = Yup.object({
@@ -56,7 +56,6 @@ export default function CompanyRegistrationForm() {
     };
 
     const { data } = await axios.post(`http://localhost:8000/company/${_id}`, companyData);
-
     if (data?.company) {
       router.push('/');
       resetForm();

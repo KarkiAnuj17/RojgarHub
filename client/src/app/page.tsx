@@ -30,7 +30,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 const Homepage = () => {
   const { _id ,role} = useSelector((state) => state.user);
   const [companyData, setCompanyData] = useState(null);
-  const dispatch = useDispatch()
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -38,7 +38,7 @@ const userSchema = new Schema({
     trim: true,
     required: false
   },
-  isVerified: {
+  isLoggedIn: {
     type: Boolean,
     default: false
   }
