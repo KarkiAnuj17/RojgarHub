@@ -40,7 +40,7 @@ const SignupForm = () => {
   const router = useRouter()
  const handleSubmit = async (values) => {
   try {
-    const { data } = await axios.post("http://localhost:8000/register", values);
+    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/register`, values);
     toast(data?.message || "Signup successful");
     router.push("/login");
   } catch (err) {

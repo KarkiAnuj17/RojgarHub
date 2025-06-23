@@ -89,10 +89,9 @@ const PostJob = () => {
       const payload = {
         ...values,
         company: companyId,
-        postedBy: userId
       };
 
-      const { data } = await axios.post('http://localhost:8000/jobs', payload);
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/jobs/${userId}`, payload);
       toast(data.message);
       resetForm();
     } catch (error) {
@@ -132,7 +131,7 @@ const PostJob = () => {
                   <div className="space-y-2">
                     <Label htmlFor="title" className="text-lg font-semibold flex items-center gap-2">
                       <Briefcase className="h-5 w-5 text-blue-600" />
-                      Job Title *
+                      Job Title 
                     </Label>
                     <Field
                       as={Input}
@@ -146,7 +145,7 @@ const PostJob = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="description" className="text-lg font-semibold">
-                      Job Description *
+                      Job Description 
                     </Label>
                     <Field
                       as={Textarea}
@@ -163,7 +162,7 @@ const PostJob = () => {
                     <div className="space-y-2">
                       <Label htmlFor="location" className="flex items-center gap-2">
                         <MapPin className="h-4 w-4 text-blue-600" />
-                        Location *
+                        Location 
                       </Label>
                       <Field
                         as={Input}

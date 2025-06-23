@@ -53,9 +53,10 @@ export default function CompanyRegistrationForm() {
   try {
     const companyData = {
       ...values,
+      createdBy:_id
     };
 
-    const { data } = await axios.post(`http://localhost:8000/company/${_id}`, companyData);
+    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/company/${_id}`, companyData);
     if (data?.company) {
       router.push('/');
       resetForm();

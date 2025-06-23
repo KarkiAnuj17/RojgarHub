@@ -22,33 +22,22 @@ export const companySlice = createSlice({
       return initialState;
     },
     addCompanyDetails: (state, action) => {
-      const {
-        _id,
-        companyName,
-        industry,
-        companyEmail,
-        companyPhone,
-        companyAddress,
-        companyWebsite,
-        companyDescription,
-        isApproved,
-        isRegistered,
-        createdBy,
-      } = action.payload.company;
+      const { isApproved, isRegistered} = action.payload
+      const {_id,companyName,industry,companyEmail,companyPhone,companyAddress,companyWebsite,companyDescription,createdBy,} = action.payload.company;
 
       return {
         ...state,
-        _id,
-        companyName,
-        industry,
-        companyEmail,
-        companyPhone,
-        companyAddress,
-        companyWebsite,
-        companyDescription,
-        isApproved,
-        isRegistered,
-        createdBy,
+        _id:_id,
+        companyName:companyName,
+        industry:industry,
+        companyEmail:companyEmail,
+        companyPhone:companyPhone,
+        companyAddress:companyAddress,
+        companyWebsite:companyWebsite,
+        companyDescription:companyDescription,
+        isApproved:isApproved,
+        isRegistered:isRegistered,
+        createdBy:createdBy,
       };
     },
   },

@@ -35,7 +35,7 @@ const dispatch = useDispatch()
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:8000/company/${_id}`);
+      const { data } = await axios.get(process.env.NEXT_PUBLIC_API_URL+`/company/${_id}`);
       setCompanyData(data);
       dispatch(addCompanyDetails(data));
     } catch (error) {

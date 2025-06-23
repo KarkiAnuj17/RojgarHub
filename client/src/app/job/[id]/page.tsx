@@ -31,7 +31,7 @@ const JobDetail = () => {
   const fetchDetails = async () => {
     try {
       setLoading(true)
-      const { data } = await axios.get(`http://localhost:8000/jobs/${jobId}`)
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/jobs/${jobId}`)
       setJob(data)
     } catch (err) {
       console.error("Failed to fetch job details:", err)
@@ -122,19 +122,13 @@ const JobDetail = () => {
                   <div className="flex items-start gap-6 mb-6">
                     <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center flex-shrink-0 border border-white/30">
                       <span className="text-white font-bold text-lg">
-                        {job.company.name
-                          .split(" ")
-                          .map((word) => word[0])
-                          .join("")
-                          .toUpperCase()
-                          .slice(0, 3)}
                       </span>
                     </div>
                     <div className="flex-1">
                       <h1 className="text-4xl font-bold mb-3 leading-tight">{job.title}</h1>
                       <div className="flex items-center gap-3 mb-2">
                         <Building className="h-5 w-5 text-white/80" />
-                        <span className="text-xl font-medium text-white/90">{job.company.name}</span>
+                        <span className="text-xl font-medium text-white/90">{job.company?.companyName}</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <MapPin className="h-5 w-5 text-white/80" />
@@ -264,22 +258,17 @@ const JobDetail = () => {
               <div className="flex items-start gap-6">
                 <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
                   <span className="text-white font-bold text-xl">
-                    {job.company.name
-                      .split(" ")
-                      .map((word) => word[0])
-                      .join("")
-                      .toUpperCase()
-                      .slice(0, 3)}
+                    
                   </span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">{job.company.name}</h3>
-                  {job.company.description && (
-                    <p className="text-gray-700 mb-4 leading-relaxed text-lg">{job.company.description}</p>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">{job.company?.companyName}</h3>
+                  {job.company?.companyDescription && (
+                    <p className="text-gray-700 mb-4 leading-relaxed text-lg">{job.company.companyDescription}</p>
                   )}
-                  {job.company.website && (
+                  {job.company?.companyWebsite && (
                     <a
-                      href={job.company.website}
+                      href={job.company.companyWebsite}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"

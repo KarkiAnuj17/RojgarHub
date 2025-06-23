@@ -47,6 +47,8 @@ import { logoutUser } from "@/redux/reducerSlices/userSlice"
 const Navbar = () => {
   const dispatch = useDispatch()
   const { isLoggedIn, email, fullName , role } = useSelector((state: any) => state.user)
+const company = useSelector((state) => state.company);
+const isRegistered = company?.isRegistered;
   const handleLogout = () => {
     dispatch(logoutUser())
   }
@@ -219,14 +221,15 @@ const Navbar = () => {
       </NavigationMenuItem>
 
   <NavigationMenuItem>
-   <Link
-      href="/employers/company-registration"
-      className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors rounded-md"
-    >
-      <Building2 className="w-4 h-4" />
-      <span>Company</span>
-    </Link>
+  <Link
+    href={isRegistered ? "/employers/company-details" : "/employers/company-registration"}
+    className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-green-600 transition-colors rounded-md"
+  >
+    <Building2 className="w-4 h-4" />
+    <span>{isRegistered ? "Company Details" : "Company"}</span>
+  </Link>
 </NavigationMenuItem>
+
 
     </NavigationMenuList>
   </NavigationMenu>

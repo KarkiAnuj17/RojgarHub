@@ -10,7 +10,7 @@ const CompanyApprovalCard = () => {
   const [companies, setCompanies] = useState({ approved: [], unapproved: [] });
   const fetchCompanies = async () => {
    
-    const { data } = await axios.get('http://localhost:8000/company');
+    const { data } = await axios.get(process.env.NEXT_PUBLIC_API_URL+'/company');
     setCompanies(data); 
    
   };
@@ -20,7 +20,7 @@ const CompanyApprovalCard = () => {
   }, []);
 
   const handleApproval = async (id) => {
-    const { data } = await axios.patch('http://localhost:8000/company/' + id);
+    const { data } = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/company/`+ id);
     if (data) fetchCompanies();
   };
 
