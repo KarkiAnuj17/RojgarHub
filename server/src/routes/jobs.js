@@ -13,7 +13,7 @@ jobRoute.get('/jobs', async(req,res)=>{
     res.send(job)
 })
 jobRoute.get('/jobs/:JobId', async(req,res)=>{
-    const job = await Jobs.findById(req.params.JobId)
+    const job = await Jobs.findById(req.params.JobId).populate('postedBy').populate('company')
     res.send(job)
 })
 

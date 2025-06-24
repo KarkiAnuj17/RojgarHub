@@ -5,7 +5,7 @@ import axios from "axios"
 import Navbar from "@/components/navbar"
 import { useRouter } from "next/navigation"
 
-const JobListingDemo = () => {
+const JobListing= () => {
   const [jobs, setJobs] = useState([])
   const router = useRouter()
 
@@ -49,4 +49,4 @@ const JobListingDemo = () => {
   )
 }
 
-export default JobListingDemo
+export default JobListing

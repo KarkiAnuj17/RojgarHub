@@ -38,6 +38,7 @@ const CompanyApprovalCard = () => {
                   <p className="text-sm text-gray-600">{item.companyEmail}</p>
                   <p className="text-sm text-gray-600">{item.companyPhone}</p>
                   <p className="text-sm text-gray-600">{item.companyAddress}</p>
+                  
                   <Badge variant="destructive" className="mt-2">Not Approved</Badge>
                 </div>
                 <div className="flex gap-2 mt-4">
@@ -67,6 +68,11 @@ const CompanyApprovalCard = () => {
                   <p className="text-sm text-gray-600">{item.companyEmail}</p>
                   <p className="text-sm text-gray-600">{item.companyPhone}</p>
                   <p className="text-sm text-gray-600">{item.companyAddress}</p>
+                  {item.postedBy && (
+        <p className="text-xs text-gray-500 italic">
+          Posted by: {item.postedBy.name} ({item.postedBy.email})
+        </p>
+      )}
                   <Badge variant="success" className="mt-2">Approved</Badge>
                 </div>
               </Card>
