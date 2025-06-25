@@ -64,7 +64,7 @@ const jobValidationSchema = Yup.object().shape({
 });
 
 const PostJob = () => {
-  const { _id: companyId  } = useSelector(state => state.company);
+  const { _id: companyId ,isApproved } = useSelector(state => state.company);
   const { _id: userId  } = useSelector(state => state.user);
 
   const initialValues = {
@@ -100,7 +100,18 @@ const PostJob = () => {
       setSubmitting(false);
     }
   };
-
+if (!isApproved) {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+      <Card className="max-w-xl w-full shadow-xl border-0 p-8 text-center">
+        <CardTitle className="text-2xl text-gray-800 mb-4">Account Not Approved</CardTitle>
+        <CardDescription className="text-gray-600">
+          Your company account is not approved yet. Please wait until an administrator approves your account to post job listings.
+        </CardDescription>
+      </Card>
+    </div>
+  );
+}
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
       <div className="max-w-4xl mx-auto">

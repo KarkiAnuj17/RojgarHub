@@ -5,8 +5,8 @@ import sendMail from "../utilis/sendEmail.js";
 const companyRoute = Router();
 
 companyRoute.get('/company', async (req, res) => {
-    const unapproved= await Company.find({ isApproved: false})
-    const approved = await Company.find({ isApproved: true})
+    const unapproved= await Company.find({ isApproved: false}).populate('createdBy')
+    const approved = await Company.find({ isApproved: true}).populate('createdBy')
 res.send({
       unapproved,approved
     })  } );

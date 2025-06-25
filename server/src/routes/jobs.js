@@ -17,4 +17,17 @@ jobRoute.get('/jobs/:JobId', async(req,res)=>{
     res.send(job)
 })
 
+jobRoute.get('/jobs/user/:userId', async (req, res) => {
+    const jobs = await Jobs.find({ postedBy: req.params.userId }).populate('postedBy').populate('company');
+    res.send(jobs);
+ 
+}); 
+
+jobRoute.delete('/jobs/:JobId',async(req,res)=>{
+    const deleteJobs = await Jobs.findByIdAndDelete(req.params.JobId)
+    res.send(deleteJobs)
+})
+
+
+
 export default jobRoute
