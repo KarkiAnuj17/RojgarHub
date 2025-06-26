@@ -68,7 +68,7 @@ The development of RojgarHub is organized into clear phases to ensure a robust a
 - ✅ User Registration & Login pages.
 - ✅ Employer Registration & Login pages.
 - ✅ Basic Logout functionality.
-- ⬜ Company Profile Creation & Verification Form.
+- ✅ Company Profile Creation & Verification Form.
 - ✅ Job Posting Interface for Employers.
 - ⬜ Job Search & Filter UI for Job Seekers.
 
@@ -79,7 +79,7 @@ The development of RojgarHub is organized into clear phases to ensure a robust a
 - ✅ User Login Endpoint: Authenticates users and generates JWT on success.
 - ✅ Employer Registration & Login Endpoints.
 - ✅ Get All Users/Employers Endpoint (for admin/testing).
-- ⬜ Company Registration & Verification Endpoint.
+- ✅ Company Registration & Verification Endpoint.
 - ✅ Job Posting Endpoint.
 - ⬜ Job Search Endpoint.
 - ⬜ Job Application Endpoint.

@@ -88,10 +88,11 @@ const PostJob = () => {
     try {
       const payload = {
         ...values,
+        postedBy: userId,
         company: companyId,
       };
 
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/jobs/${userId}`, payload);
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/jobs`, payload);
       toast(data.message);
       resetForm();
     } catch (error) {

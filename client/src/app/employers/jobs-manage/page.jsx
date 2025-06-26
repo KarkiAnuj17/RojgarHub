@@ -18,7 +18,7 @@ const ManageJobs = () => {
   const fetchJobs = async () => {
     try {
       setLoading(true)
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/jobs/user/${userId}`)
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/jobs?postedBy=${userId}`)
       setJobs(data)
     } catch (error) {
       toast.error("Failed to fetch jobs")
@@ -178,7 +178,7 @@ const ManageJobs = () => {
                   <div className="flex gap-3 pt-4 border-t border-gray-100">
                     <Button
                       variant="outline"
-                      onClick={() => router.push(`/edit-job/${job._id}`)}
+                      onClick={() => router.push(`/job/edit-jobs/${job._id}`)}
                       className="flex items-center gap-2 flex-1 hover:bg-blue-50 hover:border-blue-200"
                     >
                       <Edit className="w-4 h-4" />
@@ -206,7 +206,7 @@ const ManageJobs = () => {
             <p className="text-gray-600 mb-6">
               You haven't created any job postings yet. Start by posting your first job!
             </p>
-            <Button onClick={() => router.push("/post-job")} className="bg-blue-600 hover:bg-blue-700">
+            <Button onClick={() => router.push("/employers/jobs-post")} className="bg-blue-600 hover:bg-blue-700">
               Post Your First Job
             </Button>
           </div>

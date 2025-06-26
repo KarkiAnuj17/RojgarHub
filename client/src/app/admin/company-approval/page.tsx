@@ -34,6 +34,8 @@ const CompanyApprovalCard = () => {
       console.error('Error approving company:', error);
     }
   };
+    const handleReject= async (id) => {
+  };
 
   if (loading) {
     return (
@@ -178,6 +180,7 @@ const CompanyApprovalCard = () => {
                       </Button>
                       <Button
                         size="sm"
+                        onClick={() => handleReject(item._id)}
                         variant="outline"
                         className="flex-1 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 transition-all duration-200"
                       >
