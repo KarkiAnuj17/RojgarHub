@@ -5,6 +5,7 @@ import { dbConnect } from './db/connect.js'
 import userRoute from './routes/user.js'
 import jobRoute from './routes/jobs.js'
 import companyRoute from './routes/company.js'
+import applicationRoute from './routes/application.js'
 
 const app = express()
 const port = process.env.PORT
@@ -15,7 +16,7 @@ app.use(express.json())
 app.use(userRoute)
 app.use(jobRoute)
 app.use(companyRoute)
-
+app.use(applicationRoute)
 
 
 app.listen(port, () => {

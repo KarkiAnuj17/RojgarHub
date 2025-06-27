@@ -21,10 +21,12 @@ import {
   Bookmark,
 } from "lucide-react"
 import Link from "next/link"
+import { useSelector } from "react-redux"
 
 const JobDetail = () => {
   const params = useParams()
   const jobId = params?.id
+  const {_id : jobSeekerId}= useSelector(state=>state.user)
   const [job, setJob] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -40,6 +42,20 @@ const JobDetail = () => {
       setLoading(false)
     }
   }
+ const handleClick = async () => {
+  try {
+    const payload = {
+      jobId,
+      jobSeekerId,
+    };
+
+    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/applications`, payload);
+    alert("Application submitted successfully!");
+  } catch (error) {
+    console.error("Application failed:", error);
+    alert("Failed to submit application. Try again.");
+  }
+};
 
   useEffect(() => {
     if (jobId) {
@@ -164,6 +180,7 @@ const JobDetail = () => {
                   </Badge>
                   <Button
                     size="lg"
+                    onClick={handleClick}
                     className="bg-white text-blue-700 hover:bg-gray-50 font-semibold px-8 py-3 rounded-xl shadow-lg"
                   >
                     <Briefcase className="h-5 w-5 mr-2" />
@@ -289,6 +306,7 @@ const JobDetail = () => {
                 </div>
                 <Button
                   size="lg"
+                  onClick={handleClick}
                   className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-xl shadow-lg"
                 >
                   <Briefcase className="h-5 w-5 mr-2" />

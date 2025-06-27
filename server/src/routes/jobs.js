@@ -27,7 +27,7 @@ jobRoute.get('/jobs/:JobId', async(req,res)=>{
 })
 
 jobRoute.put('/jobs/:JobId',async(req,res)=>{
-    const updatejob = await Jobs.findByIdAndUpdate(req.params.JobId , req.body).populate('createdBy')
+    const updatejob = await Jobs.findByIdAndUpdate(req.params.JobId , req.body)
     res.send(updatejob)
 })
 
