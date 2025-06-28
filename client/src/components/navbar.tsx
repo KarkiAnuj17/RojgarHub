@@ -43,14 +43,17 @@ import Link from "next/link"
 import { useDispatch, useSelector } from "react-redux"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { logoutUser } from "@/redux/reducerSlices/userSlice"
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const { isLoggedIn, email, fullName , role } = useSelector((state: any) => state.user)
 const company = useSelector((state) => state.company);
 const isRegistered = company?.isRegistered;
   const handleLogout = () => {
     dispatch(logoutUser())
+    router.push('/')
   }
 
   return (
@@ -128,7 +131,7 @@ const isRegistered = company?.isRegistered;
                 </Link>
               </NavigationMenuLink>
               <NavigationMenuLink asChild>
-                <Link href="/employer/applications" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                <Link href="/employers/applications" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
                   <FileText className="w-4 h-4 text-gray-500" />
                   <span>Applications</span>
                 </Link>

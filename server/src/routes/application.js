@@ -3,8 +3,19 @@ import { Application } from "../model/application.js";
 const applicationRoute= Router()
 
 applicationRoute.post('/applications',async(req,res)=>{
-    const data = await Application.create(req.body)
-    res.send({message:"Applied Sucessfully",data})
+    const application = await Application.create({ isApplied:true ,...req.body})
+    res.send({message:"Applied Sucessfully",application})
 })
+
+
+applicationRoute.get('/applications/:jobId', async (req, res) => {
+    const applications = await Application.find({ jobId: req.params.jobId })
+      .populate('jobSeekerId') 
+      .populate('jobId');
+
+    res.send(applications);
+  })
+
+
 
 export default applicationRoute

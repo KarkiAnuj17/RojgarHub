@@ -12,12 +12,12 @@ res.send({
     })  } );
 
 companyRoute.post('/company/:id', async (req, res) => {
-    const company =await Company.create({createdBy : req.params.id, isRegistered:true, ...req.body});
+    const company =await Company.create({ isRegistered:true, ...req.body});
     res.send({ message: "Registration Successful" ,company});
   } );
 
     companyRoute.get('/company/:id', async (req, res) => {
-  const company = await Company.findOne({ createdBy: req.params.id });
+  const company = await Company.findOne();
   if (!company) return res.status(404).send({ isApproved: false, isRegistered: false, message: "Company not registered" });
   return res.send({ isApproved: company.isApproved, isRegistered: company.isRegistered,company:company, message: "Company registered" });
 });
