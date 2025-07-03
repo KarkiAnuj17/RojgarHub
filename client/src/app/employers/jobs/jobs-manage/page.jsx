@@ -178,7 +178,7 @@ const ManageJobs = () => {
                   <div className="flex gap-3 pt-4 border-t border-gray-100">
                     <Button
                       variant="outline"
-                      onClick={() => router.push(`/job/edit-jobs/${job._id}`)}
+                      onClick={() => router.push(`/employers/jobs/edit-jobs/${job._id}`)}
                       className="flex items-center gap-2 flex-1 hover:bg-blue-50 hover:border-blue-200"
                     >
                       <Edit className="w-4 h-4" />

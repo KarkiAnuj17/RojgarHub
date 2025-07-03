@@ -7,15 +7,9 @@ applicationRoute.post('/applications',async(req,res)=>{
     res.send({message:"Applied Sucessfully",application})
 })
 
-
 applicationRoute.get('/applications/:jobId', async (req, res) => {
-    const applications = await Application.find({ jobId: req.params.jobId })
-      .populate('jobSeekerId') 
-      .populate('jobId');
-
+    const applications = await Application.find({ jobId: req.params.jobId }).populate('jobSeekerId');
     res.send(applications);
   })
-
-
 
 export default applicationRoute

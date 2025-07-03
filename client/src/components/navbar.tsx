@@ -44,6 +44,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { logoutUser } from "@/redux/reducerSlices/userSlice"
 import { useRouter } from "next/navigation";
+import { NullCompany } from "@/redux/reducerSlices/companySlice";
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -52,9 +53,11 @@ const Navbar = () => {
 const company = useSelector((state) => state.company);
 const isRegistered = company?.isRegistered;
   const handleLogout = () => {
-    dispatch(logoutUser())
-    router.push('/')
-  }
+  dispatch(NullCompany());
+  dispatch(logoutUser());
+  router.push('/');
+};
+
 
   return (
     <header className="w-full bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -93,13 +96,13 @@ const isRegistered = company?.isRegistered;
             <div className="grid gap-2">
               <h4 className="font-medium text-gray-900 mb-2">Job Management</h4>
               <NavigationMenuLink asChild>
-                <Link href="/employers/jobs-post" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                <Link href="/employers/jobs/jobs-post" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
                   <PlusCircle className="w-4 h-4 text-gray-500" />
                   <span>Post New Job</span>
                 </Link>
               </NavigationMenuLink>
               <NavigationMenuLink asChild>
-                <Link href="/employers/jobs-manage" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                <Link href="/employers/jobs/jobs-manage" className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
                   <FileText className="w-4 h-4 text-gray-500" />
                   <span>Manage Jobs</span>
                 </Link>
