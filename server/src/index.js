@@ -6,6 +6,7 @@ import userRoute from './routes/user.js'
 import jobRoute from './routes/jobs.js'
 import companyRoute from './routes/company.js'
 import applicationRoute from './routes/application.js'
+import categoriesRoute from './routes/categories.js'
 
 const app = express()
 const port = process.env.PORT
@@ -17,6 +18,7 @@ app.use(userRoute)
 app.use(jobRoute)
 app.use(companyRoute)
 app.use(applicationRoute)
+app.use(categoriesRoute)
 
 
 app.listen(port, () => {

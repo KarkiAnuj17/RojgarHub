@@ -14,7 +14,8 @@ import {
   UserCheck,
   DollarSign,
   Calendar,
-  LogOut
+  LogOut,
+  LayoutGrid
 } from "lucide-react"
 import {
   Sidebar,
@@ -40,6 +41,8 @@ const mainItems = [
   { title: "Jobs", url: "/admin/jobs", icon: Briefcase },
   { title: "Companies", url: "/admin/companies", icon: Building2 },
   { title: "Job Seekers", url: "/admin/job-seekers", icon: Users },
+  { title: "Catagory", url: "/admin/categories", icon: LayoutGrid},
+
 ]
 
 const managementItems = [

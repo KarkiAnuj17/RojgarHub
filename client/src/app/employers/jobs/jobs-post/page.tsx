@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@/components/ui/button';
@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Briefcase, MapPin, DollarSign, Calendar, Users, Plus, X } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
@@ -66,7 +66,7 @@ const jobValidationSchema = Yup.object().shape({
 const PostJob = () => {
   const { _id: companyId ,isApproved } = useSelector(state => state.company);
   const { _id: userId  } = useSelector(state => state.user);
-
+  const [categories,setCategories]= useState([])
   const initialValues = {
     title: '',
     description: '',
@@ -101,6 +101,15 @@ const PostJob = () => {
       setSubmitting(false);
     }
   };
+
+  const fetchCategories = async()=>{
+    const {data}= await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
+    setCategories(data)
+  }
+  useEffect(()=>{
+    fetchCategories();
+  },[])
+
 if (!isApproved) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
@@ -184,7 +193,7 @@ if (!isApproved) {
                       />
                       <ErrorMessage name="location" component="div" className="text-red-500 text-sm" />
                     </div>
-
+                  
                     <div className="space-y-2">
                       <Label htmlFor="jobType">Job Type *</Label>
                       <Field name="jobType">
@@ -225,6 +234,24 @@ if (!isApproved) {
                       <ErrorMessage name="experienceLevel" component="div" className="text-red-500 text-sm" />
                     </div>
                   </div>
+                 <div className="space-y-2">
+  <label className="text-sm font-medium">Job Category</label>
+  <Select>
+    <SelectTrigger className="w-full">
+      <SelectValue placeholder="Select a job category" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectGroup>
+        <SelectLabel>Categories</SelectLabel>
+        {categories.map((item) => (
+          <SelectItem key={item._id} value={item.categoryName}>
+            {item.categoryName}
+          </SelectItem>
+        ))}
+      </SelectGroup>
+    </SelectContent>
+  </Select>
+</div>
 
                   <div className="bg-green-50 rounded-lg p-6 space-y-4">
                     <h3 className="text-lg font-semibold flex items-center gap-2">
@@ -335,7 +362,6 @@ if (!isApproved) {
                     <ErrorMessage name="deadline" component="div" className="text-red-500 text-sm" />
                   </div>
 
-                  {/* Submit */}
                   <div className="pt-6">
                     <Button
                       type="submit"
