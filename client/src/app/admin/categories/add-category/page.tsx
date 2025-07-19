@@ -17,21 +17,32 @@ const categoryValidationSchema = Yup.object().shape({
     .min(3, 'Minimum 3 characters')
     .max(100, 'Maximum 100 characters'),
   categoryDescription: Yup.string().max(500, 'Max 500 characters'),
-  icon: Yup.string().url('Icon must be a valid URL').nullable(),
   isActive: Yup.boolean(),
+  image: Yup.mixed().nullable(),
 });
 
 const AddCategories = () => {
   const initialValues = {
     categoryName: '',
     categoryDescription: '',
-    icon: '',
+    image: null,
     isActive: false,
   };
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/categories`, values);
+      const formData = new FormData();
+      formData.append('categoryName', values.categoryName);
+      formData.append('categoryDescription', values.categoryDescription);
+      formData.append('isActive', values.isActive);
+      if (values.image) {
+        formData.append('categoryImage', values.image);
+      }
+
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/categories`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
       toast.success(data.message || 'Category created successfully!');
       resetForm();
     } catch (error) {
@@ -83,14 +94,17 @@ const AddCategories = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="icon">Icon URL</Label>
-                    <Field
-                      as={Input}
-                      id="icon"
-                      name="icon"
-                      placeholder="https://example.com/icon.png"
+                    <Label htmlFor="image">Category Image</Label>
+                    <Input
+                      id="image"
+                      name="image"
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => {
+                        setFieldValue('image', event.currentTarget.files[0]);
+                      }}
                     />
-                    <ErrorMessage name="icon" component="div" className="text-red-500 text-sm" />
+                    <ErrorMessage name="image" component="div" className="text-red-500 text-sm" />
                   </div>
 
                   <div className="flex items-center gap-4">

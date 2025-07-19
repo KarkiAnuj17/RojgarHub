@@ -31,9 +31,9 @@ import { addCompanyDetails, NullCompany } from "@/redux/reducerSlices/companySli
 const Homepage = () => {
   const { _id, role } = useSelector((state) => state.user);
 const [companyData, setCompanyData] = useState(null);
+const[categories,setCategories]=useState([])
 const dispatch = useDispatch()
-useEffect(() => {
-  const fetchData = async () => {
+ const fetchData = async () => {
     try {
       const { data } = await axios.get(process.env.NEXT_PUBLIC_API_URL+`/company/${_id}`);
       setCompanyData(data);
@@ -47,10 +47,15 @@ useEffect(() => {
       }
     }
   };
-
+  const fetchCategories = async()=>{
+    const {data}= await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
+    setCategories(data)
+  }
+useEffect(() => {
   if (_id && role === "Employers") {
     fetchData();
   }
+  fetchCategories();
 }, [_id, role, dispatch]);
 
   
@@ -163,35 +168,47 @@ useEffect(() => {
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Browse by Category</h2>
-            <p className="text-xl text-gray-600">Explore opportunities in your field</p>
-          </div>
+     <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Browse by Category</h2>
+      <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        Discover thousands of opportunities across diverse industries and find your perfect career match
+      </p>
+    </div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {[
-              { icon: Code, name: "Technology", jobs: "12,500+" },
-              { icon: Palette, name: "Design", jobs: "3,200+" },
-              { icon: BarChart3, name: "Marketing", jobs: "5,800+" },
-              { icon: Stethoscope, name: "Healthcare", jobs: "8,900+" },
-              { icon: Wrench, name: "Engineering", jobs: "6,700+" },
-              { icon: GraduationCap, name: "Education", jobs: "4,100+" },
-            ].map((category) => (
-              <Card key={category.name} className="hover:shadow-lg transition-shadow cursor-pointer group">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                    <category.icon className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{category.name}</h3>
-                  <p className="text-sm text-gray-500">{category.jobs} jobs</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      {categories.map((category) => (
+        <div key={category._id} className="text-center cursor-pointer">
+          {category.image && (
+            <div className="w-30 h-30 mx-auto mb-4 relative rounded-xl overflow-hidden">
+              <img
+                src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${category.image}`}
+                alt={`${category.categoryName} category`}
+                className="object-cover w-full h-full transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+          )}
+
+          <h3 className="font-semibold text-gray-900 text-lg">
+            {category.categoryName}
+          </h3>
         </div>
-      </section>
+      ))}
+    </div>
+
+    <div className="text-center mt-12">
+      <Button className="inline-flex items-center py-6 px-9 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
+        View All Categories
+        <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </Button>
+    </div>
+  </div>
+</section>
+
+
 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">

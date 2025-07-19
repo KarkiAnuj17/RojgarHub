@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -14,7 +14,7 @@ const CategoriesPage = () => {
 
   const fetchCategories = async () => {
     try {
-      const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
       setCategories(data);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -52,22 +52,33 @@ const CategoriesPage = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {categories.map((category) => (
-              <Card key={category._id} className="border border-gray-200 shadow-sm">
-                <CardHeader>
-                  <CardTitle className="text-xl font-semibold">{category.categoryName}</CardTitle>
-                  <CardDescription className="line-clamp-2">
-                    {category.categoryDescription || 'No description provided.'}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex justify-between items-center">
-                  {category.icon && (
-                    <img src={category.icon} alt="icon" className="h-10 w-10 object-contain" />
-                  )}
-                  <Badge variant={category.isActive ? 'default' : 'secondary'}>
-                    {category.isActive ? 'Active' : 'Inactive'}
-                  </Badge>
-                </CardContent>
-              </Card>
+              <div key={category._id} className="relative">
+                <Badge
+                  variant={category.isActive ? 'default' : 'secondary'}
+                  className="absolute top-2 right-2 z-10"
+                >
+                  {category.isActive ? 'Active' : 'Inactive'}
+                </Badge>
+                <Card className="border border-gray-200 shadow-sm h-full">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-semibold">
+                      {category.categoryName}
+                    </CardTitle>
+                    <CardDescription className="line-clamp-2">
+                      {category.categoryDescription || 'No description provided.'}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {category.image && (
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${category.image}`}
+                        alt={`${category.name} category`}
+                        className="w-full h-40 object-cover rounded-md"
+                      />
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
             ))}
           </div>
         )}

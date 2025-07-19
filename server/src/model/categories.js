@@ -12,8 +12,8 @@ const categorySchema = new Schema(
       type: String,
       default: '',
     },
-    icon: {
-      type: String, 
+    image: {
+      type: String,
       default: '',
     },
     isActive: {
